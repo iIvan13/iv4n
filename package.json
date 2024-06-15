@@ -10,6 +10,7 @@
     "astro": "astro"
   },
   "dependencies": {
+    "@astrojs/netlify": "^5.3.0",
     "@fontsource-variable/fira-code": "^5.0.18",
     "astro": "^4.10.2",
     "remixicon": "^4.2.0",
