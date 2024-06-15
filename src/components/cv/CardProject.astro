@@ -1,0 +1,57 @@
+---
+interface Props {
+    props: any;
+}
+
+const { props } = Astro.props;
+const { title, techStack, description, link } = props;
+---
+
+<article>
+    <div>
+        <h3>
+            {link && <a href={link.href}>{title}</a>}
+        </h3>
+        <p>{description}</p>
+    </div>
+    <div>
+        <ul>
+            {techStack.map((tech: string) => <li>{tech}</li>)}
+        </ul>
+    </div>
+</article>
+
+<style>
+    article {
+        display: flex;
+        flex-direction: column;
+        padding: 12px;
+        border: 1px solid #00000011;
+        border-radius: 8px;
+    }
+
+    a {
+        font-size: 14px;
+        font-weight: 600;
+    }
+
+    p {
+        font-size: 12px;
+    }
+
+    ul {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 8px;
+        margin-top: 6px;
+    }
+
+    li {
+        font-size: 10px;
+        background: #0000000e;
+        color: #000000e2;
+        font-weight: 600;
+        padding: 0 8px;
+        border-radius: 4px;
+    }
+</style>

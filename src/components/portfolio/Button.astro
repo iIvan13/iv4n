@@ -1,0 +1,61 @@
+---
+interface Props {
+    href?: string;
+    size?: "xs" | "sm" | "md" | "lg" | "xl";
+    colorScheme?: "blue" | "orange" | "hotpink" | "cyan";
+    target?: "_blank" | "_self" | "_parent" | "_top";
+}
+
+const { href, size, colorScheme, target } = Astro.props;
+
+---
+
+{
+    href ? (
+        <a href={href} class={`${colorScheme} ${size}`} target={target}>
+            <slot />
+        </a>
+    ) : (
+        <button class={`${colorScheme} ${size}`}>
+            <slot />
+        </button>
+    )
+}
+
+<style>
+    button,
+    a {
+        color: var(--text);
+        border-radius: 4px;
+        border: 1.5px solid;
+        max-width: max-content;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        gap: 0.5rem;
+        background: transparent;
+        cursor: pointer;
+    }
+
+
+    .orange {
+        border-color: var(--color-orange);
+        color: var(--color-orange);
+    }
+
+    .blue {
+        border-color: var(--blue-600);
+        color: var(--text);
+    }
+
+    .sm{
+        font-size: 15px;
+        padding: 6px 12px;
+    }
+
+    .lg{
+        font-size: 16px;
+        padding: 8px 16px;
+    }
+
+</style>

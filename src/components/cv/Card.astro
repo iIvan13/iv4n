@@ -1,0 +1,72 @@
+---
+interface Props {
+    props: any;
+}
+
+const { props } = Astro.props;
+const { company, badges, start, end, title, description } = props;
+---
+
+<article>
+    <div>
+        <div class="header">
+            <h2 class="company-badge">
+                <span>
+                    {company}
+                </span>
+                <div>
+                    {badges.map((badge: string) => <span>{badge}</span>)}
+                </div>
+            </h2>
+            <span>{start} - {end || "Present"}</span>
+        </div>
+        <div class="title">
+            <h3>{title}</h3>
+        </div>
+    </div>
+    <div class="description">
+        <p>{description}</p>
+    </div>
+</article>
+
+<style>
+    article {
+        margin: 1rem 0 2rem 0;
+    }
+
+    .header {
+        display: flex;
+        justify-content: space-between;
+    }
+
+    .company-badge {
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+    }
+
+    .company-badge span {
+        color: black;
+        font-size: 16px;
+        font-weight: 600;
+    }
+
+    .company-badge div span {
+        display: flex;
+        align-items: center;
+        font-size: 12px;
+        padding: 2px 8px;
+        background-color: #f3f4f6;
+        border-radius: 0.5rem;
+        font-weight: 600;
+    }
+
+    .title h3 {
+        font-size: 14px;
+        font-weight: 400;
+    }
+
+    .description p {
+        font-size: 12px;
+    }
+</style>

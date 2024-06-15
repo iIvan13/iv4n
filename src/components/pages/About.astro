@@ -1,0 +1,176 @@
+---
+import Layout from "@layouts/Layout.astro";
+import { getI18n } from "@i18n/index";
+
+const { currentLocale } = Astro;
+const i18n = getI18n({ currentLocale });
+
+const skills = [
+    "HTML5",
+    "CSS3",
+    "JavaScript",
+    "React",
+    "Astro",
+    "Nextjs",
+    "TypeScript",
+    "Python",
+    "Git/GitHub",
+    "API",
+    "RESTful API",
+    "Zustand",
+    "Figma",
+    "Tailwind",
+    "Node.js",
+    "PWAs",
+    "Command Line",
+];
+---
+
+<Layout title={i18n.ABOUT.TITLE_PAGE}>
+    <header>
+        <span id="greeting"></span>
+        <h1>{i18n.ABOUT.TITLE}</h1>
+    </header>
+
+    <section>
+        <article class="section-text">
+            <p>
+                {i18n.ABOUT.DESCRIPTION[0]}
+                <span class="blue-text" translate="no">Astro</span>
+                {i18n.ABOUT.DESCRIPTION[1]}
+                <span class="blue-text" translate="no">Next.js</span>.
+            </p>
+
+            <p>
+                {i18n.ABOUT.DESCRIPTION[2]}
+                <span class="blue-text" translate="no">Astro</span>
+                {i18n.ABOUT.DESCRIPTION[1]}
+                <span class="blue-text" translate="no">Next.js</span>, 
+                {i18n.ABOUT.DESCRIPTION[3]}
+                <span class="blue-text" translate="no">React</span>, 
+                <span class="blue-text" translate="no">Javascript</span>
+                {i18n.ABOUT.DESCRIPTION[1]}
+                <span class="blue-text" translate="no">Typescript</span>. 
+                {i18n.ABOUT.DESCRIPTION[4]}
+            </p>
+        </article>
+    </section>
+
+    <section>
+        <article>
+            <h2 class="skills-h2">
+                <span class="blue-text">#&nbsp</span>Skills
+            </h2>
+
+            <div class="skills">
+                {
+                    skills.map((skill) => (
+                        <div class="skill">
+                            <span>{skill}</span>
+                        </div>
+                    ))
+                }
+            </div>
+        </article>
+    </section>
+</Layout>
+
+<style>
+    header {
+        display: flex;
+        flex-direction: column;
+        gap: 2rem;
+    }
+
+    h1 {
+        font-size: 18px;
+        font-weight: 500;
+    }
+
+    #greeting {
+        color: var(--blue-600);
+        font-size: 30px;
+        font-weight: 500;
+    }
+
+    .skills-h2 {
+        font-size: 20px;
+    }
+
+    article {
+        width: 100%;
+        margin-top: 2rem;
+    }
+
+    .section-text {
+        display: flex;
+        flex-direction: column;
+        gap: 1.5rem;
+        max-width: 700px;
+    }
+
+    .skills {
+        font-size: 1rem;
+        margin-top: 1.25rem;
+        color: var(--text);
+        display: flex;
+        gap: 1rem;
+        flex-wrap: wrap;
+    }
+
+    .skill {
+        position: relative;
+        border-radius: 3px;
+        padding: 4px 8px;
+        background: var(--border-color);
+    }
+
+    .skill::before {
+        content: "";
+        position: absolute;
+        inset: 0;
+        background: inherit;
+        filter: blur(10px);
+        z-index: -1;
+    }
+
+    @media (max-width: 868px) {
+        article {
+            flex-direction: column;
+            gap: 3rem;
+        }
+
+        .section-text {
+            width: 100%;
+            margin-top: 2rem;
+        }
+    }
+</style>
+
+<script>
+    const today = new Date();
+    const currentHour = today.getHours();
+
+    function greeting() {
+        if (currentHour >= 5 && currentHour < 12) {
+            return "Good morning!";
+        } else if (currentHour >= 12 && currentHour < 18) {
+            return "Good afternoon!";
+        } else if (currentHour >= 18 && currentHour < 24) {
+            return "Good evening!";
+        } else {
+            return "Hey there!";
+        }
+    }
+
+    function greet() {
+        const greetingContainer = document.getElementById("greeting");
+        if (greetingContainer) {
+            greetingContainer.innerText = greeting() || "Hey there!";
+        }
+    }
+
+    document.addEventListener("DOMContentLoaded", greet);
+    greet();
+    document.addEventListener("astro:after-swap", greet);
+</script>

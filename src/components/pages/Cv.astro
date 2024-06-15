@@ -1,0 +1,180 @@
+---
+import Layout from "@/layouts/Layout.astro";
+import Card from "@/components/cv/Card.astro";
+import { getI18n } from "@i18n/index";
+import CardProject from "../cv/CardProject.astro";
+
+const { currentLocale } = Astro;
+const i18n = getI18n({ currentLocale });
+---
+
+<Layout title="CV" isPageCv>
+    <div>
+        <header>
+            <div class="header-info">
+                <h1>{i18n.CV.name}</h1>
+                <p>{i18n.CV.about}</p>
+            </div>
+
+            <nav>
+                <div class="location">
+                    <a
+                        href="https://maps.app.goo.gl/ChuB65YSB4Yfcoxc9"
+                        target="_blank"
+                    >
+                        <i class="ri-global-line icon-small"></i>
+                        <span>{i18n.CV.location}</span>
+                    </a>
+                </div>
+                <div>
+                    <a href=""></a>
+                    <a href=""></a>
+                    <a href=""></a>
+                    <a href=""></a>
+                    <a href=""></a>
+                </div>
+            </nav>
+        </header>
+
+        <main>
+            <section>
+                <h2>{i18n.CV.titles.about}</h2>
+                <p>{i18n.CV.summary}</p>
+            </section>
+
+            <section>
+                <h2>{i18n.CV.titles.workExperience}</h2>
+                {i18n.CV.work.map((work) => <Card props={work} />)}
+            </section>
+
+            <section>
+                <h2>{i18n.CV.titles.education}</h2>
+                <div>
+                    {
+                        i18n.CV.education.map((education) => {
+                            const { school, degree, start, end } = education;
+                            return (
+                                <article class="education-card">
+                                    <h2>
+                                        <span>{school}</span>
+                                        <span>
+                                            {start} - {end || "Present"}
+                                        </span>
+                                    </h2>
+                                    <p>{degree}</p>
+                                </article>
+                            );
+                        })
+                    }
+                </div>
+            </section>
+
+            <section>
+                <h2>{i18n.CV.titles.skills}</h2>
+                <div class="skills">
+                    {
+                        i18n.CV.skills.map((skill) => {
+                            return <span>{skill}</span>;
+                        })
+                    }
+                </div>
+            </section>
+
+            <section>
+                <h2>{i18n.CV.titles.projects}</h2>
+                <div class="projects">
+                    {
+                        i18n.CV.projects.map((project: any) => {
+                            return <CardProject props={project} />;
+                        })
+                    }
+                </div>
+            </section>
+        </main>
+
+        <footer></footer>
+    </div>
+</Layout>
+
+<style>
+    main {
+        display: flex;
+        flex-direction: column;
+        gap: 2rem;
+        margin-top: 2rem;
+    }
+
+    .header-info {
+        display: flex;
+        flex-direction: column;
+        max-width: 600px;
+    }
+
+    .header-info h1 {
+        line-height: 2rem;
+    }
+
+    .location {
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+        font-size: 12px;
+    }
+
+    .location a:hover span {
+        text-decoration: underline;
+    }
+
+    .education-card {
+        margin: 1rem 0 2rem 0;
+    }
+
+    .education-card p {
+        font-size: 14px;
+    }
+
+    .education-card h2 {
+        display: flex;
+        justify-content: space-between;
+        font-size: 16px;
+    }
+
+    .education-card h2 span:first-child {
+        color: #000;
+    }
+
+    .education-card h2 span:last-child {
+        font-weight: 400;
+    }
+
+    .skills {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 1rem;
+    }
+
+    .skills span {
+        padding: 3px 8px;
+        background-color: #000324d6;
+        border-radius: 7px;
+        color: #e4faff;
+        font-size: 12px;
+        font-weight: 600;
+        line-height: 1rem;
+    }
+
+    .projects {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 1rem;
+        width: 100%;
+
+        @media (max-width: 970px) {
+            grid-template-columns: repeat(2, 1fr);
+        }
+
+        @media (max-width: 600px) {
+            grid-template-columns: repeat(1, 1fr);
+        }
+    }
+</style>

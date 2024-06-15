@@ -1,0 +1,320 @@
+---
+import ViewTransitions from 'astro/components/ViewTransitions.astro';
+import '@fontsource-variable/fira-code';
+import 'remixicon/fonts/remixicon.css'
+import Header from '@/components/portfolio/Header.astro';
+import Footer from '@/components/portfolio/Footer.astro';
+
+interface Props {
+	title: string;
+	isPageCv?: boolean
+}
+
+const { title, isPageCv } = Astro.props;
+const { currentLocale } = Astro
+---
+
+<!doctype html>
+<html lang={currentLocale}>
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width" />
+		<link rel="icon" type="image/svg+xml" href="/icon.svg" />
+		<title>Ivan - {title}</title>
+		<ViewTransitions/>
+	</head>
+	<body class={isPageCv ? 'cv' : 'dark'}>
+		{
+			isPageCv ? (
+				<slot />
+			) : (
+				<Header />
+				<main>
+					<slot />
+				</main>
+				<Footer />
+			)
+		}
+	</body>
+</html>
+
+<style is:global>
+	/* Colores */
+	:root {
+		--blue-50: #e8f2ff;
+		--blue-100: #d5eeff;
+		--blue-200: #b3deff;
+		--blue-300: #85c5ff;
+		--blue-400: #569dff;
+		--blue-500: #2f76ff;
+		--blue-600: #0040ff;
+		--blue-700: #003cff;
+		--blue-800: #0638cd;
+		--blue-900: #10379f;
+		--blue-950: #0a1e5c;
+		--blue-1000: #00000a;
+
+		/*
+
+		--bg: var(--blue-1000);
+		--text: #9ca0ae;
+		--bg-transparent: #ffffff0d;
+		--border-color:	rgba(29, 31, 36, 0.478);
+		--text-clared: var(--blue-100);
+		--bg-gradient: linear-gradient(to bottom, #020b1b, var(--bg));
+		--color-orange: #F97300;
+
+		*/
+	}
+
+	/* Themes */
+	.dark {
+		--bg: var(--blue-1000);
+		--bg-gradient: linear-gradient(to bottom, #02030f, var(--bg));
+		--bg-transparent: #ffffff0d;
+		--text: #9ca0ae;
+		--text-clared: var(--blue-100);
+		--border-color: rgb(50, 50, 78);
+		--color-orange: #F97300;
+	}
+
+	.light {
+		--bg: #f5f7fa;
+		--bg-gradient: linear-gradient(to bottom, #c3cfe2, var(--bg));
+		--bg-transparent: #0000000d;
+		--text: #363643;
+		--text-clared: var(--blue-1000);
+		--border-color: rgba(29, 31, 36, 0.478);
+		--color-orange: #F97300;
+	}
+
+	/* Reset */
+	*{
+		padding: 0;
+		margin: 0;
+		box-sizing: border-box;
+		font-family: "Fira Code Variable", system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+	}
+
+	/* HTML */
+	html {
+		scroll-behavior: smooth;
+	}
+
+	/* Body */
+	body {
+		width: 100%;
+		min-height: 100vh;
+		background-image: var(--bg-gradient);
+		color: var(--text);
+		display: flex;
+		flex-direction: column;
+		justify-content: space-between;
+	}
+
+	/* Contenido principal */
+	main {
+		width: 100%;
+		margin: 5rem 0;
+		padding: 0 13%;
+	}
+
+	/* Enlaces */
+	a {
+		text-decoration: none;
+		color: var(--text);
+		transition: color 0.3s;
+
+		&:hover {
+			color: var(--blue-600);
+		}
+	}
+
+	/* Imágenes */
+	img {
+		vertical-align: middle;
+	}
+
+	/* Encabezados */
+	h1, h2, h3, h4, h5, h6 {
+		color: var(--text-clared);
+	}
+
+	h1 {
+		font-size: 34px;
+		font-weight: 600;
+	}
+
+	h2 {
+		font-size: 22px;
+	}
+
+	h3 {
+		font-size: 19px;
+	}
+
+	h4 {
+		font-size: 16px;
+		font-weight: 600;
+	}
+
+	/* Lista */
+	li {
+		list-style: none;
+		font-weight: 400;
+	}
+
+	/* Área de texto */
+	textarea {
+		resize: none;
+	}
+
+	/* Iconos */
+	i {
+		font-size: 16px;
+
+		&.icon-small {
+			font-size: 12px;
+		}
+
+		&.icon-medium {
+			font-size: 22px;
+		}
+
+		&.icon-big {
+			font-size: 32px;
+		}
+	}
+
+	/* CV */
+
+	/* space-mono-latin-400-normal */
+	@font-face {
+		font-family: 'Space Mono';
+		font-style: normal;
+		font-display: swap;
+		font-weight: 400;
+		src: url(https://cdn.jsdelivr.net/fontsource/fonts/space-mono@latest/latin-400-normal.woff2) format('woff2'), url(https://cdn.jsdelivr.net/fontsource/fonts/space-mono@latest/latin-400-normal.woff) format('woff');
+		unicode-range: U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+2074,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD;
+	}
+
+	.cv * {
+		padding: 0;
+		margin: 0;
+		color: #6b7280;
+		font-family: "Space Mono", monospace;
+	}
+
+	.cv{
+		width: 100%;
+		max-width: 40rem;
+		margin: 0 auto;
+
+		@media screen and (max-width: 768px) {
+			padding: 1rem;
+		}
+	}
+
+	.cv a{
+		text-decoration: none;
+		color: var(--text-clared);
+		transition: color 0.3s;
+		&:hover {
+			color: var(--text-clared);
+		}
+	}
+
+	.cv h1, .cv h2, .cv h3, .cv h4, .cv h5, .cv h6 {
+		color : #030712;
+		font-weight: 800;
+		margin-bottom: .5rem;
+	}
+
+	.cv h1 {
+		font-size: 24px;
+	}
+
+	.cv h2 {
+		font-size: 20px;
+	}
+
+	.cv p{
+		font-size: 14px;
+        font-weight: 400;
+	}
+
+
+	/* Texto azul */
+	.blue-text {
+		color: var(--blue-600);
+		font-weight: 400;
+	}
+
+	/* Animations */
+	.text-swipe-animation,
+	.text-swipe-animation::after {	
+		animation-delay: 0.15s;
+		animation-duration: 0.65s;
+		animation-fill-mode: backwards;
+	}
+
+	.text-swipe-animation{
+		position: relative;
+		animation: clip-text 0.65s ease-in forwards;
+	}
+
+	.text-swipe-animation::after{
+		content: "";
+		position: absolute;
+		z-index: 100;
+		top: 0;
+		left: 0;
+		right: 0;
+		bottom: 0;
+		pointer-events: none;
+		background-color: var(--blue-600);
+		transform: scaleX(0);
+		transform-origin: 0 50%;
+		animation-name: text-swiper;
+	}
+
+	@keyframes clip-text {
+		from {
+			clip-path: inset(0 100% 0 0);
+		}
+		to {
+			clip-path: inset(0 0 0 0);
+		}
+	}
+
+	@keyframes text-swiper {
+		0%, 50% {
+			transform-origin: 0 50%;
+		}
+		60%, 100% {
+			transform-origin: 100% 50%;
+		}
+		60% {
+			transform: scaleX(1);
+		}
+		100% {
+			transform: scaleX(0);
+		}
+	}
+
+	/* Media Query */
+	@media (max-width: 968px) {
+		main {
+			padding: 0 5%;
+			margin: 8rem 0 3rem 0;
+		}
+
+		h1 {
+			font-size: 30px;
+		}
+
+		.section-lines {
+			display: none;
+		}
+	}
+</style>
